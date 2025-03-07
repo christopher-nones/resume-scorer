@@ -2,7 +2,6 @@
 
 from fastapi import FastAPI, File, UploadFile, Form, HTTPException,   Depends, Security
 import json
-import uvicorn
 from fastapi.openapi.docs import get_swagger_ui_html
 from fastapi.security.api_key import APIKeyHeader
 from typing import List, Optional
@@ -111,8 +110,7 @@ async def extract_job_criteria(
         additional_criteria_formatted = "\n".join([f"- {criterion}" for criterion in additional_criteria])
         additional_criteria_text = f"""
         I have also included the following additional criteria that you should consider in your analysis. 
-        You should integrate these with the criteria from the job description, and they may override or 
-        complement the existing criteria:
+        You must integrate these with the criteria from the job description that you have extracted.:
         
         {additional_criteria_formatted}
         """
@@ -332,4 +330,6 @@ async def custom_swagger_ui_html():
     )
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    import uvicorn
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run("app:app", host="0.0.0.0", port=port, log_level="info")
