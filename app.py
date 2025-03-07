@@ -323,14 +323,14 @@ async def score_resumes(
     # Generate Excel report
     return generate_excel_report(results)        
         
-@app.get("/docs", include_in_schema=False)
-async def custom_swagger_ui_html():
-    return get_swagger_ui_html(
-        openapi_url=app.openapi_url,  
-        title=app.title,
-        swagger_js_url="https://cdn.jsdelivr.net/npm/swagger-ui-dist@3/swagger-ui-bundle.js",
-        swagger_css_url="https://cdn.jsdelivr.net/npm/swagger-ui-dist@3/swagger-ui.css",
-    )
+# @app.get("/docs", include_in_schema=False)
+# async def custom_swagger_ui_html():
+#     return get_swagger_ui_html(
+#         openapi_url=app.openapi_url,  
+#         title=app.title,
+#         swagger_js_url="https://cdn.jsdelivr.net/npm/swagger-ui-dist@3/swagger-ui-bundle.js",
+#         swagger_css_url="https://cdn.jsdelivr.net/npm/swagger-ui-dist@3/swagger-ui.css",
+#     )
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
