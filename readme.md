@@ -1,8 +1,6 @@
 # My Resume API app
 
-[https://cn-job-fit-scorer.azurewebsites.net/docs
-
-](https://cn-job-fit-scorer.azurewebsites.net/docs)
+[https://cn-job-fit-scorer.azurewebsites.net/docs](https://cn-job-fit-scorer.azurewebsites.net/docs)
 
 contact me if you need the API key.
 
@@ -37,7 +35,7 @@ Additional criteria is optional and is used by the llm to further refine the ext
 
 ## /score-resumes
 
-``` python
+```python
 criteria: List[str] = Form(
         ..., 
         description="List of ranking criteria strings to evaluate candidates against. These should be specific skills, qualifications, or attributes that you want to score in each resume."
@@ -52,20 +50,21 @@ criteria: List[str] = Form(
 
 
  Score multiple resumes against the provided criteria.
-    
+  
     This endpoint analyzes each uploaded resume against the provided criteria and generates
     a detailed Excel report with scores and justifications for each candidate.
-    
+  
     - **criteria**: List of ranking criteria strings
     - **files**: List of resume files (PDF or DOCX)
     - **job_title**: Optional job title to provide context for scoring
-    
+  
     **Example Request:**
     - Form data with criteria like ["Python experience", "SQL experience", "Data Science degree"]
     - Multiple resume files uploaded
     - Optional job_title parameter (e.g., "Data Scientist")
-    
+  
     **Response:**
     An Excel file with two sheets:
     1. Summary Scores - Quick overview of all candidates and their scores
     2. Detailed Analysis - Complete breakdown with justifications for each score
+```
