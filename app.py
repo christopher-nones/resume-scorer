@@ -64,7 +64,7 @@ app = FastAPI(
 @app.post("/extract-criteria", response_model=dict, dependencies=[Depends(get_api_key)])
 async def extract_job_criteria(
     file: UploadFile = File(..., description="Upload a PDF or DOCX file containing the job description"),
-    additional_criteria: Optional[List[str]] = Form(None, description="Optional list of additional criteria to consider")):    
+    additional_criteria: Optional[str] = Form(None, description="Optional additional criteria to consider as string. Example: 'Must have leadership experience, proficient in data visualization'")):
     """
     Extract key ranking criteria from a job description document.
     
@@ -74,7 +74,7 @@ async def extract_job_criteria(
     Additional criteria is optional and is used by the llm to further refine the extracted criteria, either by adding to or modifying the critiera.
     
     - **file**: Upload a PDF or DOCX file containing the job description
-    - **additional_criteria**: Optional list of additional criteria to consider
+    - **additional_criteria**: Optional list of additional criteria to consider *note: this will basically work as a prompt injection*
     
     **Example Response:**
     ```json
@@ -106,14 +106,14 @@ async def extract_job_criteria(
     system_prompt = "You are an expert HR specialist who scans job descriptions and resumes to extract information and score candidates."
 
     additional_criteria_text = ""
-    if additional_criteria and len(additional_criteria) > 0:
-        additional_criteria_formatted = "\n".join([f"- {criterion}" for criterion in additional_criteria])
+    if additional_criteria:
         additional_criteria_text = f"""
         I have also included the following additional criteria that you should consider in your analysis. 
-        You must integrate these with the criteria from the job description that you have extracted.:
+        You must integrate these with the criteria from the job description that you have extracted:
         
-        {additional_criteria_formatted}
+        {additional_criteria}
         """
+
     
     prompt = f"""
     You are an expert HR recruiter tasked with extracting the key evaluation criteria from job descriptions.
