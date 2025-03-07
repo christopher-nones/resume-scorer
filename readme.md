@@ -7,7 +7,9 @@ contact me if you need the API key.
 ## /extract-criteria
 
 ````python
-file: UploadFile = File(..., description="Upload a PDF or DOCX file containing the job description"), additional_criteria: Optional[List[str]] = Form(None, description="Optional list of additional criteria to consider")): 
+file: UploadFile = File(..., description="Upload a PDF or DOCX file containing the job description"), 
+
+additional_criteria: Optional[List[str]] = Form(None, description="Optional list of additional criteria to consider")): 
 ````
 
 Extract key ranking criteria from a job description document.
